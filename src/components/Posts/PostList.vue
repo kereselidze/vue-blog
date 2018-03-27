@@ -2,36 +2,50 @@
   <div>
     <div class="articles row">
       
-      <div class="card article"  v-for="post in posts" :key="post.id">
+      <div class="card-group" v-for="chunk in articlesChunk" >
+        
+        <div class="card" v-for="article in chunk" :key="article.id">
+        <img class="card-img-top" :src="article.urlToImage" alt="">
+
         <div class="card-body">
-          <h4 class="card-title">{{post.title}}</h4>
-          <p class="card-text">{{post.body}}</p>
-          <a :href="'posts/'+post.id" class="card-link">Another link</a>
+          <h4 class="card-title">{{article.title}}</h4>
+          <p class="card-text">{{article.description}}</p>
+          <a :href="article.url" target="_blank" class="card-link">Read more...</a>
+        </div>
+        <div class="card-footer text-muted">
+            Published at: {{ article.publishedAt }}
         </div>
       </div>
+      </div>
+      
     </div>
   </div>
 </template>
 
 <script>
 import PostResource from './../../api/post'
+import _ from 'lodash'
 
 export default {
 	data () {
 		return {
-			posts: [],
+			articles: [],
 			errors: []
 		}
 	},
 	created () {
-		
 		PostResource.all()
 			.then(response => {
-				this.posts = response.data
+				this.articles = response.data.articles
 			})
 			.catch(e => {
 				this.errors.push(e)
 			})
+	},
+	computed: {
+		articlesChunk: function () {
+			return _.chunk(this.articles, 4);
+		}
 	}
 }
 </script>
