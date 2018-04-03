@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <div class="articles row">
-      
-      <div class="card-group" v-for="chunk in articlesChunk" >
-        
-        <div class="card" v-for="article in chunk" :key="article.id">
+  <row className="articles">
+    <div class="card-deck" v-for="(chunk,index) in articlesChunk" :key="index">
+      <card v-for="article in chunk" :key="article.id" className="text-center article">
         <img class="card-img-top" :src="article.urlToImage" alt="">
 
         <div class="card-body">
@@ -13,39 +10,54 @@
           <a :href="article.url" target="_blank" class="card-link">Read more...</a>
         </div>
         <div class="card-footer text-muted">
-            Published at: {{ article.publishedAt }}
+          Published at: {{ article.publishedAt }}
         </div>
-      </div>
-      </div>
-      
+      </card>
     </div>
-  </div>
+  </row>
 </template>
 
 <script>
-import PostResource from './../../api/post'
+/* eslint-disable no-mixed-spaces-and-tabs */
+
+import Row from './../mdb/Row'
+import Card from './../mdb/Card'
+import {mapGetters} from 'vuex'
+
 import _ from 'lodash'
 
 export default {
 	data () {
 		return {
-			articles: [],
-			errors: []
+			loading: false,
+			errors: [],
+			articlesChunk: []
 		}
 	},
-	created () {
-		PostResource.all()
-			.then(response => {
-				this.articles = response.data.articles
-			})
-			.catch(e => {
-				this.errors.push(e)
-			})
-	},
+
+	components: {Row, Card},
 	computed: {
-		articlesChunk: function () {
-			return _.chunk(this.articles, 4);
+		...mapGetters({
+			articles: 'getSearchedPosts'
+		})
+	},
+	watch: {
+    articles: function (newArticles, oldQuestion) {
+			this.articlesChunk = _.chunk(newArticles, 4);
+		}
+	},
+	methods: {
+		logArticles () {
+			console.log(this.articles);
 		}
 	}
 }
 </script>
+
+<style scoped lang="scss">
+  .articles {
+    .article {
+      margin-top: 40px;
+    }
+  }
+</style>

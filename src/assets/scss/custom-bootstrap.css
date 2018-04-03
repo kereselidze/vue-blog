@@ -1,0 +1,19 @@
+.grid-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999999;
+  pointer-events: none;
+  opacity: 0.21;
+  background: #d6e3c7; }
+  .grid-overlay .v-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+
+/*# sourceMappingURL=custom-bootstrap.css.map */

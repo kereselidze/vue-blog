@@ -3,13 +3,17 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store/index'
 
-Vue.config.productionTip = false
+import BoootstrapVue from 'bootstrap-vue';
 
-/* eslint-disable no-new */
-new Vue({
+Vue.use(BoootstrapVue);
+Vue.config.productionTip = false;
+
+window.Vue = new Vue({
 	el: '#app',
 	template: '<App/>',
-	components: { App },
-	router
-}).$mount('#app')
+	components: {App},
+	router,
+	store
+}).$mount('#app');
