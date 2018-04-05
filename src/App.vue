@@ -1,10 +1,7 @@
 <template>
   <div id="app" class="container">
-
     <header-bar/>
-    <container>
-      <router-view/>
-    </container>
+    <router-view />
   </div>
 </template>
 
@@ -13,6 +10,7 @@ import HeaderBar from './components/HeaderBar.vue'
 import Container from './components/mdb/Container'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'mdbootstrap/css/mdb.min.css'
+import 'bootstrap/dist/js/bootstrap.min'
 
 export default {
 	data: () => ({
@@ -30,6 +28,7 @@ export default {
 	},
 	components: {HeaderBar, Container},
 	created: function () {
+		// console.log(this.$store, 'App.vue')
 	},
 	beforeDestroy: function () {
 

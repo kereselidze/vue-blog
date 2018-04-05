@@ -1,16 +1,17 @@
 <template>
-  <header class="menu-links">
+  <header class="row menu-links">
     <b-navbar toggleable="md" type="dark" variant="primary">
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <b-navbar-brand href="#">Blog</b-navbar-brand>
+      <b-navbar-brand  to="/">Blog</b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
-        <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item to="/posts">Posts</b-nav-item>
+        <b-navbar-nav class="mr-auto">
+          <b-nav-item to="/" exact>Home</b-nav-item>
+          <b-nav-item to="/articles">Articles</b-nav-item>
+          <b-nav-item to="/posts" >Find Posts</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -33,32 +34,25 @@
       </b-collapse>
     </b-navbar>
 
-    <div class="grid-overlay" v-show="loading">
-      <ring-loader :loading="loading" :color="'#c25369'" :size="'100px'"></ring-loader>
-    </div>
-
   </header>
 </template>
 
 <script>
-import RingLoader from 'vue-spinner/src/RingLoader.vue'
 
 export default {
 	data: function () {
 		return {
-			loading: false,
 
 			errors: [],
 			keyword: ''
 		}
 	},
-	components: {RingLoader},
 	methods: {
 		findSomething: function (e) {
 			let keyword = this.keyword;
-			// this.loading = true;
+
 			this.$store.dispatch('getSearchedPosts', keyword);
-			// this.loading = false;
+			this.keyword = '';
 		},
 
 		afterSearching: function () {
@@ -70,11 +64,24 @@ export default {
 }
 </script>
 
-<style>
-  .menu-links a {
-    display: inline-block;
-    text-decoration: none;
-    color: #555;
-    margin-right: 30px;
+<style lang="scss">
+  #nav_collapse{
+    .active{
+
+    }
+  }
+  .menu-links {
+    a {
+      display: inline-block;
+      text-decoration: none;
+      color: #555;
+      margin-right: 30px;
+
+    }
+
+    nav {
+      width: 100%;
+    }
+
   }
 </style>

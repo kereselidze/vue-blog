@@ -1,7 +1,7 @@
-import PostResource from './../../api/post'
+import PostResource from '../../api/resources/post'
 
 const state = {
-	posts: [{author: '212121'}]
+	posts: []
 };
 
 const actions = {
